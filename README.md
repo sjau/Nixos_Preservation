@@ -11,3 +11,8 @@ nix --extra-experimental-features "nix-command flakes" run 'github:nix-community
 warning: unknown setting 'no-write-lock-file'
 Failed to build NixOS configuration
 ```
+
+```
+ ls
+configuration.nix  disko.nix  flake.lock  flake.nix  hardware-configuration.nix  preservation.nix
+```
