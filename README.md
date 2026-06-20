@@ -16,3 +16,8 @@ Failed to build NixOS configuration
 ls
 configuration.nix  disko.nix  flake.lock  flake.nix  hardware-configuration.nix  preservation.nix
 ```
+
+```
+nix --extra-experimental-features "nix-command flakes" run nixpkgs#disko-install -- --flake .#nixos --disk main /dev/vda
+error: flake 'flake:nixpkgs' does not provide attribute 'apps.x86_64-linux.disko-install', 'packages.x86_64-linux.disko-install', 'legacyPackages.x86_64-linux.disko-install' or 'disko-install'
+```
