@@ -13,6 +13,6 @@ Failed to build NixOS configuration
 ```
 
 ```
- ls
+ls
 configuration.nix  disko.nix  flake.lock  flake.nix  hardware-configuration.nix  preservation.nix
 ```
