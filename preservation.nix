@@ -4,11 +4,10 @@
   preservation = {
     enable = true;
 
-    preserveAt."/persistent" = {
+    preserveAt."/data" = {
       directories = [
         "/etc/nixos"
         "/tmp"
-        "/var/lib/bluetooth"
         {
           directory = "/var/lib/nixos";
           inInitrd = true;
