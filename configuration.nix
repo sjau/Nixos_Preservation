@@ -23,38 +23,6 @@
         pools = [ ]; # List of ZFS pools to periodically scrub. If empty, all pools will be scrubbed.
     };
 
-    # Clear /tmp on boot
-    boot.tmp.cleanOnBoot = true;
-
-#    boot.initrd = {
-#        systemd.enable = false;
-#        availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "megaraid_sas" "mpt3sas" "usb_storage" "usbhid" "sd_mod" ];
-#        kernelModules = [ "e1000e" ];
-#        network = {
-#            enable = true;
-#            ssh = {
-#                enable = true;
-#                port = 2222;
-#                hostKeys = [ /root/ssh_host_ed_25519_key ];
-#            };
-#            postCommands = ''
-#                zpool import tankMedia
-#                echo "zfs load-key -a; killall zfs" >> /root/.profile
-#            '';
-#        };
-#        postDeviceCommands = lib.mkAfter ''
-#            zpool import tankServi || true
-#            zfs rollback -r tankServi/encZFS/Nixos/v/:rootfs@blank
-#        '';
-#    };
-
-    # Load additional hardware stuff
-    hardware = {
-        # Hardware settings
-        cpu.intel.updateMicrocode = true;
-        enableAllFirmware = true;
-    };
-
     # Trust hydra. Needed for one-click installations.
     nix.settings.trusted-substituters = [ "http://hydra.nixos.org" ];
     nix.settings.download-buffer-size = 524288000;
@@ -89,29 +57,6 @@
         ports = [ 22 ];
     };
 
-    # Enable nscd
-    services.nscd = {
-        enable = true;
-    };
-
-    # SSH Guard - replacement for fail2ban
-    services.sshguard = {
-        enable = true;
-        services = [ "sshd" "postfix" "dovecot2" ];
-        blocktime = 120;
-        detection_time = 86400;
-        whitelist = [
-            "217.182.75.26"        # dns.simplylinux.ch
-            "78.46.32.76"          # roleplayer.org
-            "54.37.139.139"        # stois.ch
-        ];
-#        blacklist_file = "/data/sshguard/blacklist.db";
-        blacklist_threshold = 100;
-        attack_threshold = 30;
-#        ipv4_subnet = 24;
-#        ipv6_subnet = 64;
-    };
-
     # Enable ntp or rather timesyncd
     services.timesyncd = {
         enable = true;
@@ -120,19 +65,6 @@
 
     # Time.
     time.timeZone = "Europe/Zurich";
-
-    # Enable cron
-    services.cron = {
-        enable = true;
-        systemCronJobs = [
-            ### Easy Snap
-            "0 * * * *      root    /root/easysnap/easysnap hourly"
-            "0 0 * * *      root    /root/easysnap/easysnap daily"
-            "0 0 * * 0      root    /root/easysnap/easysnap weekly"
-            "15 * * * *     root    /root/easysnap/easysnapRecv /data/scripts/preEasysnap.sh"
-            "15 3 * * *     root    /root/easysnap/easysnapRm"
-        ];
-    };
 
     # Enable sudo
     security.sudo = {
