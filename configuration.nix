@@ -26,27 +26,27 @@
     # Clear /tmp on boot
     boot.tmp.cleanOnBoot = true;
 
-    boot.initrd = {
-        systemd.enable = false;
-        availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "megaraid_sas" "mpt3sas" "usb_storage" "usbhid" "sd_mod" ];
-        kernelModules = [ "e1000e" ];
-        network = {
-            enable = true;
-            ssh = {
-                enable = true;
-                port = 2222;
-                hostKeys = [ /root/ssh_host_ed_25519_key ];
-            };
+#    boot.initrd = {
+#        systemd.enable = false;
+#        availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "megaraid_sas" "mpt3sas" "usb_storage" "usbhid" "sd_mod" ];
+#        kernelModules = [ "e1000e" ];
+#        network = {
+#            enable = true;
+#            ssh = {
+#                enable = true;
+#                port = 2222;
+#                hostKeys = [ /root/ssh_host_ed_25519_key ];
+#            };
 #            postCommands = ''
 #                zpool import tankMedia
 #                echo "zfs load-key -a; killall zfs" >> /root/.profile
 #            '';
-        };
+#        };
 #        postDeviceCommands = lib.mkAfter ''
 #            zpool import tankServi || true
 #            zfs rollback -r tankServi/encZFS/Nixos/v/:rootfs@blank
 #        '';
-    };
+#    };
 
     # Load additional hardware stuff
     hardware = {
