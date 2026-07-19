@@ -103,10 +103,12 @@
     system.stateVersion = "26.05";
 
     nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Activate feature for using flakes
 
     # List packages installed in system profile.
     environment.systemPackages = with pkgs; [
         curl
+        git
         htop
         nano
         mc
