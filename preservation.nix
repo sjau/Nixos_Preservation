@@ -7,7 +7,6 @@
     preserveAt."/data" = {
       directories = [
         "/etc/nixos"
-        "/tmp"
         {
           directory = "/var/lib/nixos";
           inInitrd = true;
