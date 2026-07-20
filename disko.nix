@@ -113,6 +113,13 @@
 						};
 						mountpoint = "/nix";
 					};
+                    "Nixos/encZFS/v/tmp" = {
+                        type = "zfs_fs";
+                        options = {
+                            mountpoint = "/tmp";
+                        };
+                        mountpoint = "/tmp";
+                    };
 					# README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
 					"Nixos/encZFS/v/swap" = {
 						type = "zfs_volume";
