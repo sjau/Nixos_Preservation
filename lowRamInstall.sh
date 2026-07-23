@@ -8,7 +8,9 @@ nix --experimental-features "nix-command flakes" run github:nix-community/disko 
 # Use the zfs tmp dataset as /tmp
 mount --bind /mnt/tmp /tmp
 
-# Create swap file on /mnt/tmp - we will empty /tmp anyway on reboot...
+# Create swap file on /mnt/tmp
+# We clear /tmp on boot - see preservation.nix: boot.tmp.cleanOnBoot = true;
+# or just add that to your configuration.nix if not already there.
 
 # Unfortunately it doesn't work with a simple file being used as swap on zfs
 #dd if=/dev/zero of=/tmp/swapfile bs=1M count=8192
