@@ -35,14 +35,14 @@
 							mountOptions = [ "nofail" ];
 						};
 					};
-					swap = {
-						name = "SWAP";
-						size = "4G";
-						content = {
-							type = "swap";
-							resumeDevice = true;
-						};
-					};
+#					swap = {
+#						name = "SWAP";
+#						size = "4G";
+#						content = {
+#							type = "swap";
+#							resumeDevice = true;
+#						};
+#					};
 					zfs = {
 						size = "100%";
 						content = {
@@ -74,12 +74,12 @@
 					};
 					"Nixos/encZFS" = {
 						type = "zfs_fs";
-						options = {
-							encryption = "aes-256-gcm";
-							keyformat = "passphrase";
-							#keylocation = "file:///tmp/secret.key";
-							keylocation = "prompt";
-						};
+#						options = {
+#							encryption = "aes-256-gcm";
+#							keyformat = "passphrase";
+#							#keylocation = "file:///tmp/secret.key";
+#							keylocation = "prompt";
+#						};
 					};
 					"Nixos/encZFS/data" = {
 						type = "zfs_fs";
@@ -123,7 +123,7 @@
 					# README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
 					"Nixos/encZFS/v/swap" = {
 						type = "zfs_volume";
-						size = "10M";
+						size = "8G";
 						content = {
 							type = "swap";
 						};
