@@ -9,13 +9,21 @@ nix --experimental-features "nix-command flakes" run github:nix-community/disko 
 mount --bind /mnt/tmp /tmp
 
 # Create swap file on /mnt/tmp - we will empty /tmp anyway on reboot...
-dd if=/dev/zero of=/mnt/tmp/swapfile bs=1M count=8192
-chmod 600 /mnt/tmp/swapfile
-mkswap /mnt/tmp/swapfile
-swapon /mnt/tmp/swapfile
 
-# Expand the overlay nix store
-mount -o remount,size=8G /nix/.rw-store
+# Unfortunately it doesn't work with a simple file being used as swap on zfs
+#dd if=/dev/zero of=/tmp/swapfile bs=1M count=8192
+#chmod 600 /tmp/swapfile
+#mkswap /tmp/swapfile
+#swapon /tmp/swapfile
+
+# However we can use losetup to "make" it into a block device and then use it as swap... not safe for production but should work for initial setup
+dd if=/dev/zero of=/tmp/swapfile bs=1M count=8192
+losetup -f /tmp/swapfile
+mkswap /tmp/swapfile
+swapon /tmp/swapfile
+
+# Expand the overlay nix store; 4GB should be enough, rest can be used as system memory
+mount -o remount,size=4G /nix/.rw-store
 
 # Install Nixos
 nixos-install --flake .#nixos
