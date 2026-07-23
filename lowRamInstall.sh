@@ -9,8 +9,11 @@ nix --experimental-features "nix-command flakes" run github:nix-community/disko 
 # Activate swap
 swapon -a /dev/zvol/tankTest/Nixos/encZFS/v/swap
 
+# Use the zfs tmp dataset as /tmp
+mount --bind /mnt/tmp /tmp
+
 # Set /nix/store
-export NIX_STORE_DIR=/mnt/nix/store
+#export NIX_STORE_DIR=/mnt/nix/store
 
 # Install Nixos
-nixos-install --flake .#nixos
+#nixos-install --flake .#nixos
