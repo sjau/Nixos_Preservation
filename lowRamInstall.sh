@@ -17,10 +17,10 @@ mount --bind /mnt/tmp /tmp
 #swapon /tmp/swapfile
 
 # However we can use losetup to "make" it into a block device and then use it as swap... not safe for production but should work for initial setup
-dd if=/dev/zero of=/tmp/swapfile bs=1M count=8192
-losetup -f /tmp/swapfile
-mkswap /tmp/loop1 # The squashfs on the iso is loop0
-swapon /tmp/swapfile
+dd if=/dev/zero of=/mnt/tmp/swapfile bs=1M count=8192
+losetup -f /mnt/tmp/swapfile
+mkswap /dev/loop1 # The squashfs on the iso is loop0
+swapon /dev/loop1
 
 # Expand the overlay nix store; 4GB should be enough, rest can be used as system memory
 mount -o remount,size=4G /nix/.rw-store
