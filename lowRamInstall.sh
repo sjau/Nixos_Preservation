@@ -3,7 +3,9 @@
 # Finally we do the installation
 
 # Use Disko for partioning
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko.nix
+#nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko.nix
+# Use no dependencies for less than 4G ram
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --no-deps disko.nix
 
 # Use the zfs tmp dataset as /tmp
 mount --bind /mnt/tmp /tmp
